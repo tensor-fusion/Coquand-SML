@@ -38,8 +38,8 @@ The `expression` type represents the language AST and the `value` represents the
 The core of the type checker uses a bidirectional approach implemented in the mutually recursive functions `checkExpression` and `inferExpression`. 
 
 ```sml
-fun checkExpression (k, ρ, Γ) e A = ...
-and inferExpression (k, ρ, Γ) e = ...
+checkExpression (k, ρ, Γ) e A = ...
+inferExpression (k, ρ, Γ) e = ...
 ```
 
 These correspond to the judgments:
@@ -54,14 +54,14 @@ $$
 
 ## Normalization
 
-The `weakHeadNormalForm` function implements a simple Normalization by Evaluation strategy to compare types up to β-equivalence.
+The `normalFormValue` fn implements a simple Normalization by Evaluation strategy to compare types up to β-equivalence.
 
    ```sml
-   fun weakHeadNormalForm v =
-       case v of
-           AppliedValue (u, w) => applyValue (weakHeadNormalForm u) (weakHeadNormalForm w)
-         | Closure (env, e) => evaluate env e
-         | _ => v
+  normalFormValue value =
+      case value of
+          AppValue (func, arg) => applyValue (normalFormValue func) (normalFormValue arg)
+        | Closure (env, body) => evaluate env body
+        | _ => value
    ```
 
 ## Example
