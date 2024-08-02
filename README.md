@@ -47,6 +47,7 @@ These correspond to the judgments:
 $$
 \Gamma \vdash e \Leftarrow A \text{ (checking)}
 $$
+
 $$
 \Gamma \vdash e \Rightarrow A \text{ (inference)}
 $$
